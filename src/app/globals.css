@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f4f7fb;
+  --foreground: #0f172a;
+  --brand: #0f766e;
+  --panel-from: #0b1c2c;
+  --panel-via: #123447;
+  --panel-to: #0f766e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-sora);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+    min-height: 100vh;
+  }
+
+  .font-display {
+    font-family: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .auth-panel {
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(45, 212, 191, 0.28),
+        transparent 42%
+      ),
+      radial-gradient(
+        circle at 80% 10%,
+        rgba(56, 189, 248, 0.22),
+        transparent 36%
+      ),
+      linear-gradient(
+        155deg,
+        var(--panel-from),
+        var(--panel-via) 48%,
+        var(--panel-to)
+      );
+  }
+
+  .auth-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+    opacity: 0.35;
+  }
+
+  .auth-glow {
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(13, 148, 136, 0.12),
+        transparent 35%
+      ),
+      radial-gradient(
+        circle at top right,
+        rgba(14, 165, 233, 0.1),
+        transparent 30%
+      ),
+      linear-gradient(180deg, #eef4f9 0%, #f7fafc 48%, #eef6f4 100%);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
